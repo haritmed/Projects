@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymleaf.org"
+        lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car</title>
+</head>
+<body>
+<h2>Add New Car</h2>
+<form action="/addCar" method="post">
+    <label for="matricule">Matricule:</label><br>
+    <input type="text" id="matricule" name="matricule"><br>
+
+    <label for="model">Model:</label><br>
+    <input type="number" id="model" name="model"><br>
+
+    <label for="marque">Marque:</label><br>
+    <input type="text" id="marque" name="marque"><br>
+
+    <button type="submit">Save Car</button>
+
+</form>
+<div class="container">
+    <ul class="nav nav-pills">
+        <li class="nav-item me-2" th:each="p, stat: ${pages}">
+            <a th:class="${stat.index == currentPage} ? 'btn btn-primary' : 'btn btn-outline-primary'"
+               th:text="${stat.index}" th:href="@{voitures(page=${stat.index})}"></a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

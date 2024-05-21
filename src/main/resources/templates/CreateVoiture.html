@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="templateCar.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Car</title>
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+            background-repeat: no-repeat;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .form-container {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-container label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="tel"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="content" layout:fragment="content">
+    <h1>Add New Car</h1>
+    <div class="form-container">
+        <form method="post" th:action="@{saveVoiture}">
+            <label for="marque">Marque</label>
+            <input type="text" id="marque" name="marque" required>
+
+            <label for="model">Model</label>
+            <input type="text" id="model" name="model" required>
+
+            <label for="matricule">Matricule</label>
+            <input type="text" id="matricule" name="matricule" required>
+
+            <label for="image">Image</label>
+            <input type="text" id="image" name="image" required>
+
+            <input th:href="@{/createVoiture}" type="submit" value="Add Car">
+        </form>
+    </div>
+</div>
+</body>
+</html>

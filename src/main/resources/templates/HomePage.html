@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="templateCar.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+            background-image: url('https://fthmb.tqn.com/Y2H0UAOxpOz-CixAVGf_d6yqS2s=/5120x3413/filters:fill(auto,1)/a-red-car-drives-on-a-highway-near-the-ocean-113218541-589a03fe5f9b5874ee67a5bc.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .card {
+            background: rgba(249, 249, 249, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .card {
+            flex: 1 1 calc(33.333% - 20px);
+            box-sizing: border-box;
+        }
+        .card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="content" layout:fragment="content">
+    <h1>Welcome to our Car Collection</h1>
+    <div class="cards-container">
+        <div class="card" th:each="voitures : ${voituresVue}">
+            <img th:src="@{/images/{imageName}(imageName=${voitures.image})}">
+            <h3 th:text="${voitures.id}">Car id</h3>
+            <p th:text="${voitures.marque}">Car brand</p>
+            <p th:text="${voitures.model}">Car model</p>
+            <p th:text="${voitures.matricule}">Car lisence</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

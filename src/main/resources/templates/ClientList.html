@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="templateCar.html">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Clients List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+
+        }
+        main {
+            margin-left: 250px;
+            padding: 2rem;
+            background-color: rgba(249, 249, 249, 0.9);
+            min-height: 100vh;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+            background-image: url('https://ayataotokiralama.com/dosya/3219/blog/5-1-adana-arac-kiralama-rehberi_471.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+        }
+
+        form {
+            background-color: rgba(249, 249, 249, 0.9);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 0.5rem;
+            text-align: left;
+        }
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        form input[type="text"] {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 0.5rem;
+            width: 100%;
+        }
+        form input[type="submit"] {
+            background-color: #007bff;
+            border: none;
+            border-radius: 3px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s ease;
+        }
+        form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            background-color: #f2f2f2;
+            bottom: 0;
+            color: #fff;
+            padding: 1rem;
+            position: fixed;
+            text-align: center;
+            width: 100%;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            margin-right: 0.5rem;
+        }
+        .btn-primary {
+            background-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+        .btn-success {
+            background-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    </style>
+</head>
+<body>
+<div class="content" layout:fragment="content">
+    <main>
+        <a th:href="@{/createClient}" class="btn btn-success">
+            <i class="fas fa-user-plus"></i> Ajouter un client
+        </a>
+        <h1>Liste des clients</h1>
+
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="client : ${clientsVue}">
+                <td th:text="${client.id}"></td>
+                <td th:text="${client.nom}"></td>
+                <td th:text="${client.prenom}"></td>
+                <td th:text="${client.email}"></td>
+                <td th:text="${client.numtel}"></td>
+                <td>
+                    <a class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this client ?')" th:href="@{deleteClient(id=${client.id})}">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a class="btn btn-warning" th:href="@{'editClient?id=' + ${client.id}}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <ul class="nav nav-pills">
+            <li th:each="page,status:${pages}">
+                <a th:class="${status.index==currentPage?'btn btn-primary':'btn'}"
+                   th:href="@{ClientList(page=${status.index}, size=${size})}"
+                   th:text="${status.index}"></a>
+            </li>
+        </ul>
+
+        <form method="get" th:action="@{clients}">
+            <input type="text" name="search" th:value="${keyword}" />
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </main>
+</div>
+</body>
+</html>
